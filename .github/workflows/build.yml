@@ -1,0 +1,41 @@
+name: Build & Test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-native:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Clone libpg_query
+        run: git clone -b 17-latest https://github.com/pganalyze/libpg_query
+
+      - name: Build libpg_query (Linux/macOS)
+        if: matrix.os != 'windows-latest'
+        run: |
+          cd libpg_query
+          make
+          mkdir -p ../native/${{ matrix.os }}
+          cp libpg_query.* ../native/${{ matrix.os }}/
+
+      - name: Build libpg_query (Windows)
+        if: matrix.os == 'windows-latest'
+        run: |
+          cd libpg_query
+          nmake /F Makefile.msvc
+          mkdir ..\native\${{ matrix.os }}
+          copy libpg_query.dll ..\native\${{ matrix.os }}\
+
+      - name: Upload native artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: libpg_query-${{ matrix.os }}
+          path: native/${{ matrix.os }}
