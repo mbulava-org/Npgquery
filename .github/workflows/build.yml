@@ -21,10 +21,12 @@ jobs:
           git clone -b 17-latest https://github.com/pganalyze/libpg_query
           cd libpg_query
           nmake /F Makefile.msvc
+          copy libpg_query.lib ..\pgquery\
 
       - name: Build wrapper DLL
         run: |
-          msbuild pgquery\pgquery.vcxproj /p:Configuration=Release /p:Platform=x64
+          cd pgquery
+          msbuild pgquery_wrapper.vcxproj /p:Configuration=Release /p:Platform=x64
 
       - name: Copy DLL to runtimes
         run: |
