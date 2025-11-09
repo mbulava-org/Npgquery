@@ -11,7 +11,7 @@ jobs:
     uses: ./.github/workflows/standard-dotnet-library-ci.yml 
     secrets: inherit
     with:
-      dotnet-version: '9.0.x'
+      dotnet_version: '9.0.x'
       semantic_version: '1.0.0.0'
       push_output: false
       push_branch: true
