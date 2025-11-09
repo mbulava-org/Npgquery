@@ -34,7 +34,7 @@ jobs:
         if: matrix.os == 'windows-latest'
         run: |
           cd libpg_query
-          set DLL = libpg_query.dll
+          $Env:DLL = "libpg_query.dll"
           nmake /F Makefile.msvc DLL=1
           mkdir ..\native\${{ matrix.os }}
           copy libpg_query.dll ..\native\${{ matrix.os }}\
