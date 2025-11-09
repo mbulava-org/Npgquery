@@ -22,7 +22,7 @@
     </ClCompile>
     <Link>
       <!-- Path to libpg_query.lib -->
-      <AdditionalDependencies>libpg_query.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>pg_query.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)\libpg_query\</AdditionalLibraryDirectories>
       <AdditionalLibraryDirectories>$(SolutionDir)..\</AdditionalLibraryDirectories>
     </Link>
