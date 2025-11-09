@@ -1,4 +1,4 @@
-name: Build & Test
+name: Build & Test Npgquery
 
 on:
   push:
@@ -7,71 +7,50 @@ on:
     branches: [ main ]
 
 jobs:
-  build-windows:
-    runs-on: windows-latest
+  build-native:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
 
-      # Setup MSVC environment so nmake/msbuild are available
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      # Linux/macOS build
+      - name: Build libpg_query (Linux/macOS)
+        if: matrix.os != 'windows-latest'
+        run: |
+          git clone -b 17-latest https://github.com/pganalyze/libpg_query
+          cd libpg_query
+          make
+          mkdir -p ../runtimes/${{ matrix.os }}/native
+          cp libpg_query.* ../runtimes/${{ matrix.os }}/native/
+
+      # Windows build
       - name: Setup MSVC
+        if: matrix.os == 'windows-latest'
         uses: ilammy/msvc-dev-cmd@v1
 
       - name: Build pg_query.lib
+        if: matrix.os == 'windows-latest'
         run: |
           git clone -b 17-latest https://github.com/pganalyze/libpg_query
           cd libpg_query
           nmake /F Makefile.msvc
-          copy pg_query.lib ..\
 
       - name: Build wrapper DLL
+        if: matrix.os == 'windows-latest'
         run: |
           msbuild pgquery_wrapper.vcxproj /p:Configuration=Release /p:Platform=x64
-
-      - name: Copy DLL to runtimes
-        run: |
           mkdir runtimes\win-x64\native
           copy x64\Release\pgquery_wrapper.dll runtimes\win-x64\native\
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: windows-dll
-          path: runtimes/win-x64/native/pgquery_wrapper.dll
-    
-  build-native:
-    if: 1 == 0 #
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest]
-    runs-on: ${{ matrix.os }}
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Clone libpg_query
-        run: git clone -b 17-latest https://github.com/pganalyze/libpg_query
-
-      - name: Build libpg_query (Linux/macOS)
-        if: matrix.os != 'windows-latest'
-        run: |
-          cd libpg_query
-          make
-          mkdir -p ../native/${{ matrix.os }}
-          cp libpg_query.* ../native/${{ matrix.os }}/
-
-#      - name: Setup MSVC environment
-#        if: matrix.os == 'windows-latest'
-#        uses: ilammy/msvc-dev-cmd@v1
-#      - name: Build libpg_query (Windows)
-#        if: matrix.os == 'windows-latest'
-#        run: |
-#          cd libpg_query
-#          $Env:DLL = "libpg_query.dll"
-#          nmake /F Makefile.msvc DLL=1
-#          mkdir ..\native\${{ matrix.os }}          
-#          copy libpg_query.dll ..\native\${{ matrix.os }}\
-
-      - name: Upload native artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: libpg_query-${{ matrix.os }}
-          path: native/${{ matrix.os }}
+          name: native-${{ matrix.os }}
+          path: runtimes/
