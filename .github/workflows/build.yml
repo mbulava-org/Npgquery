@@ -16,12 +16,12 @@ jobs:
       - name: Setup MSVC
         uses: ilammy/msvc-dev-cmd@v1
 
-      - name: Build libpg_query.lib
+      - name: Build pg_query.lib
         run: |
           git clone -b 17-latest https://github.com/pganalyze/libpg_query
           cd libpg_query
           nmake /F Makefile.msvc
-          copy libpg_query.lib ..\pgquery\
+          copy pg_query.lib ..\pgquery\
 
       - name: Build wrapper DLL
         run: |
