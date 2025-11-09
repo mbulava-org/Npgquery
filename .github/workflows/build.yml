@@ -24,7 +24,7 @@ jobs:
 
       - name: Build wrapper DLL
         run: |
-          msbuild pgquery_wrapper.vcxproj /p:Configuration=Release /p:Platform=x64
+          msbuild pgquery\pgquery.vcxproj /p:Configuration=Release /p:Platform=x64
 
       - name: Copy DLL to runtimes
         run: |
