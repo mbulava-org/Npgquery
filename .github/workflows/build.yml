@@ -8,7 +8,7 @@ on:
 
 jobs:
   standard-ci: 
-    uses: ./.github/workflows/standard-dotnet-library-ci.yml
+    uses: ./.github/workflows/standard-dotnet-library-ci.yml 
     secrets: inherit
     with:
       dotnet-version: '9.0.x'
