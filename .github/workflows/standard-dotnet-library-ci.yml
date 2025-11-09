@@ -88,7 +88,7 @@ jobs:
         run: dotnet test --configuration Release --no-build
 
       - name: Pack NuGet
-        run: dotnet pack --configuration Release --no-build /property:PackageOutputPath=./Output /property:Version=${{ env.NEW_VERSION }}${{ env.PRERELEASE}}
+        run: dotnet pack --configuration Release --no-build -o ./Ouput /property:Version=${{ env.NEW_VERSION }}${{ env.PRERELEASE}}
 
       - name: Upload NuGet Artifact
         uses: actions/upload-artifact@v4

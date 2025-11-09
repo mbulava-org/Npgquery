@@ -6,6 +6,8 @@
 	<LangVersion>13.0</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+	  <IsPackable>true</IsPackable>
+	  <IsShipping>true</IsShipping>
   </PropertyGroup>
 
   <!-- netstandard2.1 cannot produce an executable; override OutputType -->
