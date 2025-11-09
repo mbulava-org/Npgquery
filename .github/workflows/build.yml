@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  standard-ci:
+  standard-ci: 
     uses: mbulava-org/actions-templates/.github/workflows/BuildTestPublish-DotNet.yaml@main
     secrets: inherit
     with:
