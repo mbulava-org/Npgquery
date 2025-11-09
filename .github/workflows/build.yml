@@ -8,7 +8,7 @@ on:
 
 jobs:
   standard-ci:
-    uses: mbulava-org/actions-templates/.github/workflows/BuildTestPublish-DotNet.yml@main
+    uses: mbulava-org/actions-templates/.github/workflows/BuildTestPublish-DotNet.yaml@main
     secrets: inherit
     with:
       dotnet-version: '9.0.x'
