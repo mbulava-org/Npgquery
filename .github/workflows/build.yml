@@ -7,10 +7,40 @@ on:
     branches: [ main ]
 
 jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Setup MSVC environment so nmake/msbuild are available
+      - name: Setup MSVC
+        uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Build libpg_query.lib
+        run: |
+          git clone -b 17-latest https://github.com/pganalyze/libpg_query
+          cd libpg_query
+          nmake /F Makefile.msvc
+
+      - name: Build wrapper DLL
+        run: |
+          msbuild pgquery_wrapper.vcxproj /p:Configuration=Release /p:Platform=x64
+
+      - name: Copy DLL to runtimes
+        run: |
+          mkdir runtimes\win-x64\native
+          copy x64\Release\pgquery_wrapper.dll runtimes\win-x64\native\
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-dll
+          path: runtimes/win-x64/native/pgquery_wrapper.dll
+    
   build-native:
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [ubuntu-latest, macos-latest]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -26,18 +56,17 @@ jobs:
           mkdir -p ../native/${{ matrix.os }}
           cp libpg_query.* ../native/${{ matrix.os }}/
 
-      - name: Setup MSVC environment
-        if: matrix.os == 'windows-latest'
-        uses: ilammy/msvc-dev-cmd@v1
-
-      - name: Build libpg_query (Windows)
-        if: matrix.os == 'windows-latest'
-        run: |
-          cd libpg_query
-          $Env:DLL = "libpg_query.dll"
-          nmake /F Makefile.msvc DLL=1
-          mkdir ..\native\${{ matrix.os }}
-          copy libpg_query.dll ..\native\${{ matrix.os }}\
+#      - name: Setup MSVC environment
+#        if: matrix.os == 'windows-latest'
+#        uses: ilammy/msvc-dev-cmd@v1
+#      - name: Build libpg_query (Windows)
+#        if: matrix.os == 'windows-latest'
+#        run: |
+#          cd libpg_query
+#          $Env:DLL = "libpg_query.dll"
+#          nmake /F Makefile.msvc DLL=1
+#          mkdir ..\native\${{ matrix.os }}          
+#          copy libpg_query.dll ..\native\${{ matrix.os }}\
 
       - name: Upload native artifact
         uses: actions/upload-artifact@v4
