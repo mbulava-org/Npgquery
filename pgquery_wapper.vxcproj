@@ -1,0 +1,11 @@
+<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+  <ClCompile>
+    <PreprocessorDefinitions>WIN32;_WINDOWS;_USRDLL;PGQUERY_WRAPPER_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+  </ClCompile>
+  <Link>
+    <!-- Corrected to pg_query.lib -->
+    <AdditionalDependencies>pg_query.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    <AdditionalLibraryDirectories>$(SolutionDir)\libpg_query\</AdditionalLibraryDirectories>
+  </Link>
+</ItemDefinitionGroup>

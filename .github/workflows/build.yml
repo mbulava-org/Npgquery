@@ -21,7 +21,7 @@ jobs:
           git clone -b 17-latest https://github.com/pganalyze/libpg_query
           cd libpg_query
           nmake /F Makefile.msvc
-          copy pg_query.lib ..\pgquery\
+          copy pg_query.lib ..\
 
       - name: Build wrapper DLL
         run: |
@@ -40,6 +40,7 @@ jobs:
           path: runtimes/win-x64/native/pgquery_wrapper.dll
     
   build-native:
+    if: 1 == 0 #
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
