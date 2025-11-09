@@ -45,7 +45,7 @@ jobs:
       - name: Build wrapper DLL
         if: matrix.os == 'windows-latest'
         run: |
-          msbuild pgquery_wrapper.vcxproj /p:Configuration=Release /p:Platform=x64
+          msbuild wrapper/pgquery_wrapper.vcxproj /p:Configuration=Release /p:Platform=x64
           mkdir runtimes\win-x64\native
           copy x64\Release\pgquery_wrapper.dll runtimes\win-x64\native\
 
