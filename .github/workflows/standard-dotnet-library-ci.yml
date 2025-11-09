@@ -12,6 +12,11 @@ on:
         type: string
         required: true
         default: '1.0.0.0'
+      all_tests:
+        description: 'If true all tests will be run'
+        required: false
+        default: true
+        type: boolean
       push_output:
         description: 'If true the NuGet package will be published to GitHub Packages.'
         required: false
@@ -79,6 +84,7 @@ jobs:
         run: dotnet build --configuration Release --no-restore /p:Version=$NEW_VERSION
 
       - name: Test
+        if: ${{ inputs.all_tests == true }}
         run: dotnet test --configuration Release --no-build
 
       - name: Pack NuGet
