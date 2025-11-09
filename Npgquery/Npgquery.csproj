@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<Authors>JaredMSFT</Authors>
+		<Authors>mbulava-org</Authors>
 		<ClientVersion>1.0.0</ClientVersion>
 		<IsPreview>false</IsPreview>
 		<VersionSuffix Condition=" '$(IsPreview)' == 'true' ">preview</VersionSuffix>
@@ -19,7 +19,7 @@
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<AssemblyName>Npgquery</AssemblyName>
 		<RootNamespace>Npgquery</RootNamespace>
-		<PackageId>Npgquery</PackageId>
+		<PackageId>mbulava-org.Npgquery</PackageId>
 		<PackageTags>postgres;libpg_query;postgresql;sql;parser;ast;query;normalization;fingerprinting;plpgsql;tokenization;</PackageTags>
 		<IsPackable>true</IsPackable>
 		<IsShipping>true</IsShipping>
@@ -47,6 +47,8 @@
 		<Copyright>© Npgquery All rights reserved.</Copyright>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<ImplicitUsings>enable</ImplicitUsings>
+		<PackageOutputPath>$(OutputPath)</PackageOutputPath>
+
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -65,6 +67,12 @@
 
 	<ItemGroup>
 		<Protobuf Include="Protos\pg_query.proto" GrpcServices="Client" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="pg_query.dll">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
 	</ItemGroup>
 
 </Project>

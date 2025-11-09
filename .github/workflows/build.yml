@@ -7,7 +7,18 @@ on:
     branches: [ main ]
 
 jobs:
+  standard-ci:
+    uses: mbulava-org/actions-templates/.github/workflows/BuildTestPublish-DotNet.yml@main
+    secrets: inherit
+    with:
+      dotnet-version: '9.0.x'
+      semantic_version: '1.0.0.0'
+      push_output: false
+      push_branch: true
+
+
   build-native:
+    if: 1 == 0
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
