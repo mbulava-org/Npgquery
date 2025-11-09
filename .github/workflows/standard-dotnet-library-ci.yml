@@ -68,8 +68,8 @@ jobs:
           if [ "${{ inputs.push_branch }}" = "true" ] && [ "$BRANCH" != "main" ] && [ "$BRANCH" != "master" ]; then
             prerelease="-beta"
             newV="$newV$prerelease"
-            echo "PRERELEASE version detected on branch $BRANCH, setting NEW_VERSION to $newV"
-            echo "NEW_VERSION=$newV" >> $GITHUB_ENV
+            echo "PRERELEASE version detected on branch $BRANCH, will update nuget package version to $newV"
+            echo "PRERELEASE=$prerelease" >> $GITHUB_ENV
           fi
           
       - name: Restore
@@ -82,7 +82,7 @@ jobs:
         run: dotnet test --configuration Release --no-build
 
       - name: Pack NuGet
-        run: dotnet pack --configuration Release --no-build /property:PackageOutputPath=./Output /property:Version=${{ env.NEW_VERSION }}
+        run: dotnet pack --configuration Release --no-build /property:PackageOutputPath=./Output /property:Version=${{ env.NEW_VERSION }}${{ env.PRERELEASE}}
 
       - name: Upload NuGet Artifact
         uses: actions/upload-artifact@v4
