@@ -88,17 +88,17 @@ jobs:
         run: dotnet test --configuration Release --no-build
 
       - name: Pack NuGet
-        run: dotnet pack --configuration Release --no-build -o ./Ouput /property:Version=${{ env.NEW_VERSION }}${{ env.PRERELEASE}}
+        run: dotnet pack --configuration Release --no-build -o ./artifacts /property:Version=${{ env.NEW_VERSION }}${{ env.PRERELEASE}}
 
       - name: Upload NuGet Artifact
         uses: actions/upload-artifact@v4
         with:
           name: nuget-package
-          path: ./Output/*.nupkg
+          path: ./artifacts/*.nupkg
 
       - name: Publish Nuget (Github Packages)
         if: ${{ inputs.push_output == true && ( inputs.push_branch == true || github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master' ) }}
-        run: dotnet nuget push "./Output/*.nupkg"
+        run: dotnet nuget push "./artifacts/*.nupkg"
         env:
           NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   
