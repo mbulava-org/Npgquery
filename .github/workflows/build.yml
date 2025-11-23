@@ -22,7 +22,8 @@ jobs:
     if: 1 == 0
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        #os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -36,7 +37,7 @@ jobs:
       - name: Build libpg_query (Linux/macOS)
         if: matrix.os != 'windows-latest'
         run: |
-          git clone -b 17-latest https://github.com/pganalyze/libpg_query
+          git clone -b 17 https://github.com/pganalyze/libpg_query
           cd libpg_query
           make
           mkdir -p ../runtimes/${{ matrix.os }}/native
@@ -50,7 +51,7 @@ jobs:
       - name: Build pg_query.lib
         if: matrix.os == 'windows-latest'
         run: |
-          git clone -b 17-latest https://github.com/pganalyze/libpg_query
+          git clone -b 17 https://github.com/pganalyze/libpg_query
           cd libpg_query
           nmake /F Makefile.msvc
 
