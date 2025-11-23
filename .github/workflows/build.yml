@@ -56,13 +56,15 @@ jobs:
           git clone -b ${{env.POSTGRES_VERSION}} https://github.com/pganalyze/libpg_query
           cd libpg_query
           nmake /F Makefile.msvc
+          mkdir ..\runtimes\win-x64\native
+          copy pg_query.lib ..\runtimes\win-x64\native\
 
-      - name: Build wrapper DLL (Wndows))
-        if: matrix.os == 'windows-latest'
-        run: |
-          msbuild wrapper/pgquery_wrapper.vcxproj /p:Configuration=Release /p:Platform=x64
-          mkdir runtimes\win-x64\native
-          copy x64\Release\*.* runtimes\win-x64\native\
+      #- name: Build wrapper DLL (Wndows))
+      #  if: matrix.os == 'windows-latest'
+      #  run: |
+      #    msbuild wrapper/pgquery_wrapper.vcxproj /p:Configuration=Release /p:Platform=x64
+      #    mkdir runtimes\win-x64\native
+      #    copy x64\Release\*.* runtimes\win-x64\native\
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
