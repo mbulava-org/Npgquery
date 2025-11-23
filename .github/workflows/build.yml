@@ -22,11 +22,10 @@ jobs:
     if: 1 == 1
     strategy:
       matrix:
-        #os: [ubuntu-latest, windows-latest, macos-latest]
-        os: [windows-latest]
+        os: [ubuntu-latest, windows-latest, macos-latest]
     runs-on: ${{ matrix.os }}
     env:
-      POSTGRES_VERSION: '17-6.1.0'
+      POSTGRES_VERSION: '16-5.2.0'
     steps:
       - uses: actions/checkout@v4
 
@@ -58,13 +57,6 @@ jobs:
           nmake /F Makefile.msvc
           mkdir ..\runtimes\win-x64\native
           copy pg_query.lib ..\runtimes\win-x64\native\
-
-      #- name: Build wrapper DLL (Wndows))
-      #  if: matrix.os == 'windows-latest'
-      #  run: |
-      #    msbuild wrapper/pgquery_wrapper.vcxproj /p:Configuration=Release /p:Platform=x64
-      #    mkdir runtimes\win-x64\native
-      #    copy x64\Release\*.* runtimes\win-x64\native\
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
