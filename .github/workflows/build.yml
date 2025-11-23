@@ -25,6 +25,8 @@ jobs:
         #os: [ubuntu-latest, windows-latest, macos-latest]
         os: [windows-latest]
     runs-on: ${{ matrix.os }}
+    env:
+      POSTGRES_VERSION: '17-6.1.0'
     steps:
       - uses: actions/checkout@v4
 
@@ -37,30 +39,30 @@ jobs:
       - name: Build libpg_query (Linux/macOS)
         if: matrix.os != 'windows-latest'
         run: |
-          git clone -b 17 https://github.com/pganalyze/libpg_query
+          git clone -b ${{env.POSTGRES_VERSION}} https://github.com/pganalyze/libpg_query
           cd libpg_query
           make
           mkdir -p ../runtimes/${{ matrix.os }}/native
           cp libpg_query.* ../runtimes/${{ matrix.os }}/native/
 
       # Windows build
-      - name: Setup MSVC
+      - name: Setup MSVC (Windows)
         if: matrix.os == 'windows-latest'
         uses: ilammy/msvc-dev-cmd@v1
 
-      - name: Build pg_query.lib
+      - name: Build pg_query.lib (Windows)
         if: matrix.os == 'windows-latest'
         run: |
-          git clone -b 17 https://github.com/pganalyze/libpg_query
+          git clone -b ${{env.POSTGRES_VERSION}} https://github.com/pganalyze/libpg_query
           cd libpg_query
           nmake /F Makefile.msvc
 
-      - name: Build wrapper DLL
+      - name: Build wrapper DLL (Wndows))
         if: matrix.os == 'windows-latest'
         run: |
           msbuild wrapper/pgquery_wrapper.vcxproj /p:Configuration=Release /p:Platform=x64
           mkdir runtimes\win-x64\native
-          copy x64\Release\pgquery_wrapper.dll runtimes\win-x64\native\
+          copy x64\Release\*.* runtimes\win-x64\native\
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
