@@ -28,9 +28,9 @@
 		<PlatformTarget>AnyCPU</PlatformTarget>
 		<ShippingScope>External</ShippingScope>
 		<SigningType>Product</SigningType>
-		<RepositoryUrl>https://github.com/JaredMSFT/Npgquery</RepositoryUrl>
+		<RepositoryUrl>https://github.com/mbulava-org/Npgquery</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
-		<PackageProjectUrl>https://github.com/JaredMSFT/Npgquery</PackageProjectUrl>
+		<PackageProjectUrl>https://github.com/mbulava-org/Npgquery</PackageProjectUrl>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<PackageReadmeFile>PACKAGE_README.md</PackageReadmeFile>
 		<PackageReleaseNotes>Initial release of Npgquery v1.0.0 with full PostgreSQL query parsing capabilities.</PackageReleaseNotes>
@@ -63,7 +63,7 @@
 		<None Include="..\LICENSE" Pack="true" PackagePath="\" />
 		<None Include="..\PACKAGE_README.md" Pack="true" PackagePath="\" />
 		<None Include="runtimes\**\*" Pack="true" PackagePath="runtimes\" />
-		<None Include="pg_query.dll" Pack="true" />
+		<None Include="pg_query.dll" Pack="true" PackagePath="lib\" />
 	</ItemGroup>
 
 	<ItemGroup>
