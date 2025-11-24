@@ -63,7 +63,7 @@
 		<None Include="..\LICENSE" Pack="true" PackagePath="\" />
 		<None Include="..\PACKAGE_README.md" Pack="true" PackagePath="\" />
 		<None Include="runtimes\**\*" Pack="true" PackagePath="runtimes\" />
-		<None Include="pg_query.dll" Pack="true" PackagePath="lib\" />
+		<None Include="pg_query.dll" Pack="true" PackagePath="\" />
 	</ItemGroup>
 
 	<ItemGroup>
