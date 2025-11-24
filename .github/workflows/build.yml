@@ -40,7 +40,7 @@ jobs:
         run: |
           git clone -b ${{env.POSTGRES_VERSION}} https://github.com/pganalyze/libpg_query
           cd libpg_query
-          make
+          make build_shared
           mkdir -p ../runtimes/${{ matrix.os }}/native
           cp libpg_query.* ../runtimes/${{ matrix.os }}/native/
 
