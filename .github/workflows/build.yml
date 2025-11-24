@@ -54,7 +54,7 @@ jobs:
         run: |
           git clone -b ${{env.POSTGRES_VERSION}} https://github.com/pganalyze/libpg_query
           cd libpg_query
-          nmake /F Makefile.msvc
+          nmake /F Makefile.msvc build
           mkdir ..\runtimes\win-x64\native
           copy pg_query.lib ..\runtimes\win-x64\native\
 
