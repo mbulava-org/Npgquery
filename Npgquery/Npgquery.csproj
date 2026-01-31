@@ -11,7 +11,7 @@
 		<FileVersion>$(Version)</FileVersion>
 		<InformationalVersion>$(ClientVersion)</InformationalVersion>
 		<FileVersion>$(ClientVersion)</FileVersion>
-		<TargetFrameworks>net9.0;net8.0;netstandard2.1</TargetFrameworks>
+		<TargetFrameworks>net10.0;net8.0;netstandard2.1</TargetFrameworks>
 		<LangVersion>13.0</LangVersion>
 		<CurrentDate>$([System.DateTime]::Now.ToString(yyyyMMdd))</CurrentDate>
 		<Nullable>enable</Nullable>
@@ -52,11 +52,11 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Google.Protobuf" Version="3.33.0" />
-		<PackageReference Include="Grpc.Tools" Version="2.72.0" PrivateAssets="All" />
+		<PackageReference Include="Google.Protobuf" Version="3.33.5" />
+		<PackageReference Include="Grpc.Tools" Version="2.76.0" PrivateAssets="All" />
 		<PackageReference Include="System.Memory" Version="4.6.3" />
-		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
-		<PackageReference Include="System.Text.Json" Condition="'$(TargetFramework)' == 'net472' or '$(TargetFramework)' == 'net6.0' or '$(TargetFramework)' == 'netstandard2.0' or '$(TargetFramework)' == 'netstandard2.1'" Version="9.0.0" />
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.102" PrivateAssets="All" />
+		<PackageReference Include="System.Text.Json" Condition="'$(TargetFramework)' == 'net472' or '$(TargetFramework)' == 'net6.0' or '$(TargetFramework)' == 'netstandard2.0' or '$(TargetFramework)' == 'netstandard2.1'" Version="10.0.2" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Include="..\LICENSE" Pack="true" PackagePath="\" />
