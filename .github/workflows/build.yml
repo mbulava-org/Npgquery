@@ -1,0 +1,66 @@
+name: Build & Test Npgquery
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  standard-ci: 
+    uses: ./.github/workflows/standard-dotnet-library-ci.yml 
+    secrets: inherit
+    with:
+      dotnet_version: '10.0.x' 
+      semantic_version: '1.0.0.0'
+      all_tests: false
+      push_output: true
+      push_branch: true
+
+
+#I've got the native build commented out for now as it's not currently in use, it needs to be but it works on Windows at the moment so work on it later...
+  # build-native:
+  #   if: 1 == 1
+  #   strategy:
+  #     matrix:
+  #       os: [ubuntu-latest, windows-latest]
+  #   runs-on: ${{ matrix.os }}
+  #   env:
+  #     POSTGRES_VERSION: '16-5.2.0'
+  #   steps:
+  #     - uses: actions/checkout@v4
+
+  #     - name: Setup .NET
+  #       uses: actions/setup-dotnet@v4
+  #       with:
+  #         dotnet-version: '9.0.x'
+
+  #     # Linux/macOS build
+  #     - name: Build libpg_query (Linux/macOS)
+  #       if: matrix.os != 'windows-latest'
+  #       run: |
+  #         git clone -b ${{env.POSTGRES_VERSION}} https://github.com/pganalyze/libpg_query
+  #         cd libpg_query
+  #         make build_shared
+  #         mkdir -p ../runtimes/${{ matrix.os }}/native
+  #         cp libpg_query.* ../runtimes/${{ matrix.os }}/native/
+
+  #     # Windows build
+  #     - name: Setup MSVC (Windows)
+  #       if: matrix.os == 'windows-latest'
+  #       uses: ilammy/msvc-dev-cmd@v1
+
+  #     - name: Build pg_query.lib (Windows)
+  #       if: matrix.os == 'windows-latest'
+  #       run: |
+  #         git clone -b ${{env.POSTGRES_VERSION}} https://github.com/pganalyze/libpg_query
+  #         cd libpg_query
+  #         nmake /F Makefile.msvc build
+  #         mkdir ..\runtimes\win-x64\native
+  #         copy pg_query.lib ..\runtimes\win-x64\native\
+
+  #     - name: Upload artifact
+  #       uses: actions/upload-artifact@v4
+  #       with:
+  #         name: native-${{ matrix.os }}
+  #         path: runtimes/

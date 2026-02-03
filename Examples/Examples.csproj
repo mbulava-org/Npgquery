@@ -2,14 +2,16 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-	<TargetFrameworks>net9.0;net8.0;net472;netstandard2.0</TargetFrameworks>
+	<TargetFrameworks>net10.0;net8.0;netstandard2.1</TargetFrameworks>
 	<LangVersion>13.0</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+	  <IsPackable>false</IsPackable>
+	  <IsShipping>false</IsShipping>
   </PropertyGroup>
 
   <!-- netstandard2.1 cannot produce an executable; override OutputType -->
-  <PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
+  <PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.1'">
     <OutputType>Library</OutputType>
     <!-- Avoid trying to create an apphost for a library target -->
     <UseAppHost>false</UseAppHost>
@@ -17,12 +19,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Npgquery\Npgquery.csproj" />
-    <PackageReference Include="System.Text.Json" Condition="'$(TargetFramework)' == 'net472' or '$(TargetFramework)' == 'net6.0' or '$(TargetFramework)' == 'netstandard2.0' or '$(TargetFramework)' == 'netstandard2.1'" Version="9.0.0" />
+    <PackageReference Include="System.Text.Json" Condition="'$(TargetFramework)' == 'net472' or '$(TargetFramework)' == 'net6.0' or '$(TargetFramework)' == 'netstandard2.0' or '$(TargetFramework)' == 'netstandard2.1'" Version="10.0.2" />
   </ItemGroup>
 
   <ItemGroup>
     <None Update="pg_query.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 

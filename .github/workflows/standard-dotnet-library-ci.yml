@@ -1,0 +1,108 @@
+name: 'Build, Test & Publish NuGet DotNet'
+on:
+  workflow_call:
+    inputs:
+      dotnet_version:
+        description: '.NET version - must be provided in the setup dotnet action format'
+        required: false
+        type: string
+        default: '8.0.x'
+      semantic_version:
+        description: "The 4 part Version, ie {Major}.{Minor}.{Patch}.{Build}, the {Build} value is the seed value of the action's run_number value."
+        type: string
+        required: true
+        default: '1.0.0.0'
+      all_tests:
+        description: 'If true all tests will be run'
+        required: false
+        default: true
+        type: boolean
+      push_output:
+        description: 'If true the NuGet package will be published to GitHub Packages.'
+        required: false
+        default: true
+        type: boolean
+      push_branch:
+        description: 'If true, PR branches will publish prerelease packages.'
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build-dotnet:
+    runs-on: ubuntu-latest
+    env:
+      NEW_VERSION: ${{ inputs.semantic_version}}
+      VERSION_BUILD: 0
+      VERSION_MAJOR: 0
+      VERSION_MINOR: 0
+      VERSION_PATCH: 0
+      BRANCH: ${{ github.head_ref || github.ref_name }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ inputs.dotnet_version }}
+          #source-url needs to be setup for org level packages.
+          source-url: https://nuget.pkg.github.com/mbulava-org/index.json
+        env: 
+          NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DOTNET_INSTALL_DIR: './.dotnet'
+
+      - name: 'Calculate NEW_VERSION value'
+        run: |
+          IFS='.'
+          read -ra arr <<< ${{ inputs.semantic_version }}
+          inc=${{ github.run_number }}
+          old=${arr[3]}
+          build="$(( inc + old ))"
+          newV=${arr[0]}.${arr[1]}.${arr[2]}.$build
+          IFS=" "
+          echo "NEW_VERSION=$newV" >> $GITHUB_ENV
+          echo "VERSION_BUILD=$build" >> $GITHUB_ENV
+          echo "VERSION_MAJOR=${arr[0]}" >> $GITHUB_ENV
+          echo "VERSION_MINOR=${arr[1]}" >> $GITHUB_ENV
+          echo "VERSION_PATCH=${arr[2]}" >> $GITHUB_ENV
+          echo "Successfully parsed ${{ inputs.semantic_version }} and calculated new value $newV"
+          echo "Successfully calculated VERSION_BUILD value $build"
+          echo "Successfully calculated VERSION_MAJOR value ${arr[0]}"
+          echo "Successfully calculated VERSION_MINOR value ${arr[1]}"
+          echo "Successfully calculated VERSION_PATCH value ${arr[2]}"
+          if [ "${{ inputs.push_branch }}" = "true" ] && [ "$BRANCH" != "main" ] && [ "$BRANCH" != "master" ]; then
+            prerelease="-beta"
+            newV="$newV$prerelease"
+            echo "PRERELEASE version detected on branch $BRANCH, will update nuget package version to $newV"
+            echo "PRERELEASE=$prerelease" >> $GITHUB_ENV
+          fi
+          
+      - name: Restore
+        run: dotnet restore 
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore /p:Version=$NEW_VERSION
+
+      - name: Test
+        if: ${{ inputs.all_tests == true }}
+        run: dotnet test --configuration Release --no-build
+
+      - name: Pack NuGet
+        run: dotnet pack --configuration Release --no-build -o ./artifacts /property:Version=${{ env.NEW_VERSION }}${{ env.PRERELEASE}}
+
+      - name: Upload NuGet Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: nuget-package
+          path: ./artifacts/*.nupkg
+
+      - name: Publish Nuget (Github Packages)
+        if: ${{ inputs.push_output == true && ( inputs.push_branch == true || github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master' ) }}
+        run: dotnet nuget push "./artifacts/*.nupkg"
+        env:
+          NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  

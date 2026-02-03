@@ -1,0 +1,286 @@
+{
+  "settings": {
+    "components": {
+      "code": false,
+      "binaries": false
+    },
+    "targetId": "net10.0",
+    "targetDisplayName": ".NETCoreApp,Version=v10.0"
+  },
+  "analysisStartTime": "2026-01-31T03:14:04.7494831Z",
+  "analysisEndTime": "2026-01-31T03:14:06.7441868Z",
+  "privacyModeHelpUrl": "https://go.microsoft.com/fwlink/?linkid=2270980",
+  "stats": {
+    "summary": {
+      "projects": 3,
+      "issues": 3,
+      "incidents": 5,
+      "effort": 5
+    },
+    "charts": {
+      "severity": {
+        "Mandatory": 4,
+        "Optional": 1,
+        "Potential": 0,
+        "Information": 0
+      },
+      "category": {
+        "NuGet": 2,
+        "Project": 3
+      }
+    }
+  },
+  "projects": [
+    {
+      "path": "Examples\\Examples.csproj",
+      "startingProject": true,
+      "issues": 1,
+      "storyPoints": 1,
+      "properties": {
+        "appName": "Examples",
+        "projectKind": "DotNetCoreApp",
+        "frameworks": [
+          "net9.0",
+          "net8.0",
+          "netstandard2.1"
+        ],
+        "languages": [
+          "C#"
+        ],
+        "tools": [
+          "MSBuild"
+        ],
+        "isSdkStyle": true,
+        "numberOfFiles": 1,
+        "numberOfCodeFiles": 1,
+        "linesTotal": 720,
+        "linesOfCode": 720,
+        "totalApiScanned": 0,
+        "minLinesOfCodeToChange": 0,
+        "maxLinesOfCodeToChange": 0
+      },
+      "ruleInstances": [
+        {
+          "incidentId": "2a3fa85e-7d29-49b6-a3fa-2a226bdf1eb8",
+          "ruleId": "Project.0002",
+          "projectPath": "Examples\\Examples.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Current target framework: net9.0;net8.0;netstandard2.1\nRecommended target framework: net9.0;net8.0;netstandard2.1;net10.0",
+              "protected": "Current target framework: net9.0;net8.0;netstandard2.1\nRecommended target framework: net9.0;net8.0;netstandard2.1;net10.0"
+            },
+            "kind": "File",
+            "path": "Examples\\Examples.csproj",
+            "snippet": "Current target framework: net9.0;net8.0;netstandard2.1\nRecommended target framework: net9.0;net8.0;netstandard2.1;net10.0",
+            "protectedSnippet": "Current target framework: net9.0;net8.0;netstandard2.1\nRecommended target framework: net9.0;net8.0;netstandard2.1;net10.0",
+            "properties": {
+              "CurrentTargetFramework": "net9.0;net8.0;netstandard2.1",
+              "RecommendedTargetFramework": "net9.0;net8.0;netstandard2.1;net10.0"
+            }
+          }
+        }
+      ],
+      "features": []
+    },
+    {
+      "path": "Npgquery\\Npgquery.csproj",
+      "startingProject": true,
+      "issues": 2,
+      "storyPoints": 2,
+      "properties": {
+        "appName": "Npgquery",
+        "projectKind": "ClassLibrary",
+        "frameworks": [
+          "net9.0",
+          "net8.0",
+          "netstandard2.1"
+        ],
+        "languages": [
+          "C#"
+        ],
+        "tools": [
+          "MSBuild"
+        ],
+        "isSdkStyle": true,
+        "numberOfFiles": 8,
+        "numberOfCodeFiles": 8,
+        "linesTotal": 1929,
+        "linesOfCode": 1929,
+        "totalApiScanned": 0,
+        "minLinesOfCodeToChange": 0,
+        "maxLinesOfCodeToChange": 0
+      },
+      "ruleInstances": [
+        {
+          "incidentId": "b968f33a-93c8-470b-828d-8464b8c4597e",
+          "ruleId": "NuGet.0003",
+          "projectPath": "Npgquery\\Npgquery.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "System.Memory, 4.6.3\n\nRecommendation:\n\nPackage functionality included with new framework reference",
+              "protected": "System.Memory, 4.6.3\n\nRecommendation:\n\nPackage functionality included with new framework reference"
+            },
+            "kind": "File",
+            "path": "Npgquery\\Npgquery.csproj",
+            "snippet": "System.Memory, 4.6.3\n\nRecommendation:\n\nPackage functionality included with new framework reference",
+            "protectedSnippet": "System.Memory, 4.6.3\n\nRecommendation:\n\nPackage functionality included with new framework reference",
+            "label": "System.Memory 4.6.3",
+            "properties": {
+              "PackageId": "System.Memory",
+              "PackageVersion": "4.6.3",
+              "PackageNewVersion": null,
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "d27b149c-1fde-4ad3-b209-a3a181f40280",
+          "ruleId": "Project.0002",
+          "projectPath": "Npgquery\\Npgquery.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Current target framework: net9.0;net8.0;netstandard2.1\nRecommended target framework: net9.0;net8.0;netstandard2.1;net10.0",
+              "protected": "Current target framework: net9.0;net8.0;netstandard2.1\nRecommended target framework: net9.0;net8.0;netstandard2.1;net10.0"
+            },
+            "kind": "File",
+            "path": "Npgquery\\Npgquery.csproj",
+            "snippet": "Current target framework: net9.0;net8.0;netstandard2.1\nRecommended target framework: net9.0;net8.0;netstandard2.1;net10.0",
+            "protectedSnippet": "Current target framework: net9.0;net8.0;netstandard2.1\nRecommended target framework: net9.0;net8.0;netstandard2.1;net10.0",
+            "properties": {
+              "CurrentTargetFramework": "net9.0;net8.0;netstandard2.1",
+              "RecommendedTargetFramework": "net9.0;net8.0;netstandard2.1;net10.0"
+            }
+          }
+        }
+      ],
+      "features": []
+    },
+    {
+      "path": "Npgquery.Tests\\Npgquery.Tests.csproj",
+      "startingProject": true,
+      "issues": 2,
+      "storyPoints": 2,
+      "properties": {
+        "appName": "Npgquery.Tests",
+        "projectKind": "DotNetCoreApp",
+        "frameworks": [
+          "net9.0",
+          "net8.0"
+        ],
+        "languages": [
+          "C#"
+        ],
+        "tools": [
+          "MSBuild"
+        ],
+        "isSdkStyle": true,
+        "numberOfFiles": 6,
+        "numberOfCodeFiles": 4,
+        "linesTotal": 4566,
+        "linesOfCode": 1956,
+        "totalApiScanned": 0,
+        "minLinesOfCodeToChange": 0,
+        "maxLinesOfCodeToChange": 0
+      },
+      "ruleInstances": [
+        {
+          "incidentId": "5bc729ab-ec0a-444f-b74e-1f765e2564b1",
+          "ruleId": "NuGet.0005",
+          "projectPath": "Npgquery.Tests\\Npgquery.Tests.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "xunit, 2.9.3\n\nRecommendation:\n\nGuide for migrating from xUnit.net v2 to v3: https://xunit.net/docs/getting-started/v3/migration\nRemove xunit, and replace with new package xunit, 2.9.3",
+              "protected": "xunit, 2.9.3\n\nRecommendation:\n\nGuide for migrating from xUnit.net v2 to v3: https://xunit.net/docs/getting-started/v3/migration\nRemove xunit, and replace with new package xunit, 2.9.3"
+            },
+            "kind": "File",
+            "path": "Npgquery.Tests\\Npgquery.Tests.csproj",
+            "snippet": "xunit, 2.9.3\n\nRecommendation:\n\nGuide for migrating from xUnit.net v2 to v3: https://xunit.net/docs/getting-started/v3/migration\nRemove xunit, and replace with new package xunit, 2.9.3",
+            "protectedSnippet": "xunit, 2.9.3\n\nRecommendation:\n\nGuide for migrating from xUnit.net v2 to v3: https://xunit.net/docs/getting-started/v3/migration\nRemove xunit, and replace with new package xunit, 2.9.3",
+            "label": "xunit 2.9.3",
+            "properties": {
+              "PackageId": "xunit",
+              "PackageVersion": "2.9.3",
+              "PackageNewVersion": null,
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "ab621023-be57-432f-8aab-1a897fffbaee",
+          "ruleId": "Project.0002",
+          "projectPath": "Npgquery.Tests\\Npgquery.Tests.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Current target framework: net9.0;net8.0\nRecommended target framework: net9.0;net8.0;net10.0",
+              "protected": "Current target framework: net9.0;net8.0\nRecommended target framework: net9.0;net8.0;net10.0"
+            },
+            "kind": "File",
+            "path": "Npgquery.Tests\\Npgquery.Tests.csproj",
+            "snippet": "Current target framework: net9.0;net8.0\nRecommended target framework: net9.0;net8.0;net10.0",
+            "protectedSnippet": "Current target framework: net9.0;net8.0\nRecommended target framework: net9.0;net8.0;net10.0",
+            "properties": {
+              "CurrentTargetFramework": "net9.0;net8.0",
+              "RecommendedTargetFramework": "net9.0;net8.0;net10.0"
+            }
+          }
+        }
+      ],
+      "features": []
+    }
+  ],
+  "rules": {
+    "NuGet.0003": {
+      "id": "NuGet.0003",
+      "isFeature": false,
+      "description": "NuGet package functionality is included with framework reference.\n\nPackage needs to be removed.",
+      "label": "NuGet package functionality is included with framework reference",
+      "severity": "Mandatory",
+      "effort": 1,
+      "links": [
+        {
+          "url": "https://go.microsoft.com/fwlink/?linkid=2262609",
+          "isCustom": false
+        }
+      ]
+    },
+    "Project.0002": {
+      "id": "Project.0002",
+      "isFeature": false,
+      "description": "Project\u0027s target framework(s) needs to be changed to the new target framework that you selected for this upgrade.\n\nDuring upgrade target framework will be adjusted to corresponding platform when applicable. In some cases project would result in multiple target frameworks after the upgrade if it was using features that now have their own platforms in modern .NET frameworks (windows, iOS, Android etc).",
+      "label": "Project\u0027s target framework(s) needs to be changed",
+      "severity": "Mandatory",
+      "effort": 1,
+      "links": [
+        {
+          "title": "Overview of porting from .NET Framework to .NET",
+          "url": "https://go.microsoft.com/fwlink/?linkid=2265227",
+          "isCustom": false
+        },
+        {
+          "title": ".NET project SDKs",
+          "url": "https://go.microsoft.com/fwlink/?linkid=2265226",
+          "isCustom": false
+        }
+      ]
+    },
+    "NuGet.0005": {
+      "id": "NuGet.0005",
+      "isFeature": false,
+      "description": "NuGet package is deprecated.\n\nGo to its documentation and if there is a guidance for replacement of functionality provided by this package.",
+      "label": "NuGet package is deprecated",
+      "severity": "Optional",
+      "effort": 1,
+      "links": [
+        {
+          "url": "https://go.microsoft.com/fwlink/?linkid=2262531",
+          "isCustom": false
+        }
+      ]
+    }
+  }
+}

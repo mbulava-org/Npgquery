@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<Authors>JaredMSFT</Authors>
+		<Authors>mbulava-org</Authors>
 		<ClientVersion>1.0.0</ClientVersion>
 		<IsPreview>false</IsPreview>
 		<VersionSuffix Condition=" '$(IsPreview)' == 'true' ">preview</VersionSuffix>
@@ -11,7 +11,7 @@
 		<FileVersion>$(Version)</FileVersion>
 		<InformationalVersion>$(ClientVersion)</InformationalVersion>
 		<FileVersion>$(ClientVersion)</FileVersion>
-		<TargetFrameworks>net9.0;net8.0;net472;netstandard2.1</TargetFrameworks>
+		<TargetFrameworks>net10.0;net8.0;netstandard2.1</TargetFrameworks>
 		<LangVersion>13.0</LangVersion>
 		<CurrentDate>$([System.DateTime]::Now.ToString(yyyyMMdd))</CurrentDate>
 		<Nullable>enable</Nullable>
@@ -19,7 +19,7 @@
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<AssemblyName>Npgquery</AssemblyName>
 		<RootNamespace>Npgquery</RootNamespace>
-		<PackageId>Npgquery</PackageId>
+		<PackageId>mbulava-org.Npgquery</PackageId>
 		<PackageTags>postgres;libpg_query;postgresql;sql;parser;ast;query;normalization;fingerprinting;plpgsql;tokenization;</PackageTags>
 		<IsPackable>true</IsPackable>
 		<IsShipping>true</IsShipping>
@@ -28,9 +28,9 @@
 		<PlatformTarget>AnyCPU</PlatformTarget>
 		<ShippingScope>External</ShippingScope>
 		<SigningType>Product</SigningType>
-		<RepositoryUrl>https://github.com/JaredMSFT/Npgquery</RepositoryUrl>
+		<RepositoryUrl>https://github.com/mbulava-org/Npgquery</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
-		<PackageProjectUrl>https://github.com/JaredMSFT/Npgquery</PackageProjectUrl>
+		<PackageProjectUrl>https://github.com/mbulava-org/Npgquery</PackageProjectUrl>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<PackageReadmeFile>PACKAGE_README.md</PackageReadmeFile>
 		<PackageReleaseNotes>Initial release of Npgquery v1.0.0 with full PostgreSQL query parsing capabilities.</PackageReleaseNotes>
@@ -47,24 +47,36 @@
 		<Copyright>© Npgquery All rights reserved.</Copyright>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<ImplicitUsings>enable</ImplicitUsings>
+		<PackageOutputPath>$(OutputPath)</PackageOutputPath>
+
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Google.Protobuf" Version="3.33.0" />
-		<PackageReference Include="Grpc.Tools" Version="2.72.0" PrivateAssets="All" />
+		<PackageReference Include="Google.Protobuf" Version="3.33.5" />
+		<PackageReference Include="Grpc.Tools" Version="2.76.0" PrivateAssets="All" />
 		<PackageReference Include="System.Memory" Version="4.6.3" />
-		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
-		<PackageReference Include="System.Text.Json" Condition="'$(TargetFramework)' == 'net472' or '$(TargetFramework)' == 'net6.0' or '$(TargetFramework)' == 'netstandard2.0' or '$(TargetFramework)' == 'netstandard2.1'" Version="9.0.0" />
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.102" PrivateAssets="All" />
+		<PackageReference Include="System.Text.Json" Condition="'$(TargetFramework)' == 'net472' or '$(TargetFramework)' == 'net6.0' or '$(TargetFramework)' == 'netstandard2.0' or '$(TargetFramework)' == 'netstandard2.1'" Version="10.0.2" />
 	</ItemGroup>
-
 	<ItemGroup>
 		<None Include="..\LICENSE" Pack="true" PackagePath="\" />
 		<None Include="..\PACKAGE_README.md" Pack="true" PackagePath="\" />
 		<None Include="runtimes\**\*" Pack="true" PackagePath="runtimes\" />
+		<None Include="pg_query.dll" Pack="true" PackagePath="runtimes\win-x64\native\pg_query.dll" />
+		<None Include="pg_query.so" Pack="true" PackagePath="runtimes\linux-x64\native\pg_query.so" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<Protobuf Include="Protos\pg_query.proto" GrpcServices="Client" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="pg_query.dll">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="pg_query.so">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>	
+	  </None>
 	</ItemGroup>
 
 </Project>

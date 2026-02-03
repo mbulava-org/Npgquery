@@ -746,7 +746,8 @@ This library requires the `libpg_query` native library. The NuGet package includ
 
 - Windows (x64, ARM64)
 - Linux (x64, ARM64)
-- macOS (x64, ARM64)
+~~- macOS (x64, ARM64)~~
+This is currently hacked together with pre-built binaries. macOS support is planned for a future release.
 
 ## Supported Features
 
